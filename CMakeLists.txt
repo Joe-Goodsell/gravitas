@@ -10,7 +10,8 @@ FetchContent_Declare(SFML
     GIT_TAG 2.6.x)
 FetchContent_MakeAvailable(SFML)
 
-add_executable(gravitas src/main.cpp)
+set(SOURCE_FILES src/main.cpp src/Particle.cpp src/Utils.cpp)
+add_executable(gravitas ${SOURCE_FILES})
 target_link_libraries(gravitas PRIVATE sfml-graphics)
 target_compile_features(gravitas PRIVATE cxx_std_17)
 
