@@ -7,12 +7,8 @@
 #include <string>
 #include "Particle.h"
 
-
-const int FRAMERATE_CALC_WINDOW { 10 }; // frames
-
 int main()
 {
-
     std::cout << "INITIALIZING gravitas" << std::endl;
     std::cout << "CWD IS: " << std::filesystem::current_path() << std::endl;
     auto window = sf::RenderWindow{ { 1920u, 1080u }, "CMake SFML Project" };
@@ -37,8 +33,10 @@ int main()
     // Initialise particles
     std::vector<Particle> particles;
 
+    Particle particle = Particle(sf::Vector2f(350,350), sf::Vector2f(0.2,0.2), 0.2f);
+    particle.set_trace(true);
     // add some test particles
-    particles.push_back(Particle(sf::Vector2f(350,350), sf::Vector2f(0,0), 0.2f));
+    particles.push_back(particle);
 
 
     while (window.isOpen())

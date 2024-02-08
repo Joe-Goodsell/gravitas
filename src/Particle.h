@@ -19,11 +19,13 @@ class Particle {
 
         sf::Vector2f update_position(sf::Vector2f external_force_direction, float external_force_strength);
         sf::Vector2f update_position();
+        void set_trace(bool trace);
 
         void draw(sf::RenderWindow& window);
 
     private:
         sf::CircleShape sprite;
+        bool trace;
 
 
         std::chrono::time_point<std::chrono::high_resolution_clock> last_update;
