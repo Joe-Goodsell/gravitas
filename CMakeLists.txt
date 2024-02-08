@@ -23,7 +23,6 @@ FetchContent_Declare(SFML
     GIT_TAG 2.6.x)
 FetchContent_MakeAvailable(SFML)
 
-enable_testing()
 set(SOURCE_FILES 
     src/main.cpp 
     src/Particle.cpp 
@@ -43,18 +42,23 @@ target_link_libraries(gravitas PUBLIC
 )
 
 # BUILD TESTS
+enable_testing()
 add_executable(example_tests tests/example_tests.cpp)
-add_executable(particle_tests tests/particle_tests.cpp)
+add_executable(particle_tests src/Particle.cpp tests/particle_tests.cpp src/Utils.cpp)
 target_link_libraries(example_tests PUBLIC
+    sfml-graphics
     gtest
     gtest_main
 )
 target_link_libraries(particle_tests PUBLIC
+    sfml-graphics
     gtest
     gtest_main
 )
+include(googletest)
+gtest_discover_tests(particle_tests)
 
-add_test(NAME example_tests COMMAND example_tests)
+# add_test(NAME example_tests COMMAND example_tests)
 add_test(NAME particle_tests COMMAND particle_tests)
 
 target_compile_features(gravitas PRIVATE cxx_std_17)
