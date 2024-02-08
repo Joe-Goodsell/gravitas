@@ -4,11 +4,15 @@
 #include "SFML/System/Vector2.hpp"
 class GravitySource {
     public:
+        GravitySource(sf::Vector2f position, float strength);
+        ~GravitySource();
+
+        void set_draw(bool draw);
+    
+    private:
         sf::Vector2f position;
         float strength;
-
-        GravitySource(sf::Vector2f position);
-        ~GravitySource();
+        bool draw;
 };
 
 #endif

@@ -33,10 +33,14 @@ int main()
     // Initialise particles
     std::vector<Particle> particles;
 
-    Particle particle = Particle(sf::Vector2f(350,350), sf::Vector2f(0.2,0.2), 0.2f);
+    Particle particle = Particle(sf::Vector2f(350,350), sf::Vector2f(0.2,0.2), 500.f);
     particle.set_trace(true);
     // add some test particles
     particles.push_back(particle);
+
+
+    // Initialise gravity well
+    
 
 
     while (window.isOpen())
