@@ -10,7 +10,7 @@
 class Particle {
     public:
 
-        Particle(sf::Vector2f position, sf::Vector2f direction, float velocity);
+        Particle(sf::Vector2f position, sf::Vector2f velocity, float mass);
         ~Particle();
 
         sf::Vector2f update_position(sf::Vector2f external_force_direction, float external_force_strength);
@@ -18,13 +18,15 @@ class Particle {
         void set_trace(bool trace);
         sf::Vector2f const get_position();
         void set_position(sf::Vector2f position);
+        
+        float const get_mass();
 
         void draw(sf::RenderWindow& window);
 
     private:
         sf::Vector2f position;
-        sf::Vector2f direction;
-        float velocity;
+        sf::Vector2f velocity;
+        float mass;
         sf::CircleShape sprite;
         sf::Color color;
         bool trace;

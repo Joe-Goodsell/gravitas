@@ -42,8 +42,8 @@ int main()
     for (int i = 0; i < 50; i++) {
         auto rand1 = static_cast<float>(rand() / randmax) - 0.5;
         auto rand2 = static_cast<float>(rand() / randmax) - 0.5;
-        auto p = Particle(sf::Vector2f(350,350), sf::Vector2f(rand1,rand2), 50.f);
-        p.set_trace(false);
+        auto p = Particle(sf::Vector2f(350,350), 5.f*sf::Vector2f(rand1,rand2), 5.f);
+        p.set_trace(true);
         particles.push_back(p);
     }
 
@@ -51,7 +51,7 @@ int main()
     // Initialise gravity well
     // std::vector<GravitySource> grav_sources;
     // grav_sources.push_back(GravitySource(sf::Vector2f(700,700), 1.f));
-    auto grav_source = GravitySource(sf::Vector2f(700,700), 500.f);
+    auto grav_source = GravitySource(sf::Vector2f(700,700), 5000.f);
     grav_source.set_disp(true);
 
 
@@ -104,15 +104,15 @@ int main()
             //TODO: add support for multiple grav sources
             auto p2grav_vec = grav_source.get_position() - particle.get_position() ;
             // auto p2grav_vec = particle.get_position() - grav_source.get_position();
-            auto magnitude = std::max(1.f, utils::magnitude2f(p2grav_vec));
-            extern_force_magnitude = (GRAV_CONST * grav_source.get_strength()) / (magnitude*magnitude);
+            auto dist = std::max(1.f, utils::magnitude2f(p2grav_vec));
+            extern_force_magnitude = (GRAV_CONST * grav_source.get_strength() * particle.get_mass()) / (dist*dist);
             extern_force_direction = utils::normalize2f(p2grav_vec);
 
             
             //DEBUG
             std::cout << "P2_GRAV_VEC " << p2grav_vec.x << " " << p2grav_vec.y << std::endl;
             std::cout << "PART_POS " << particle.get_position().x << " " << particle.get_position().y << std::endl;
-            std::cout << "DIST__ " << magnitude << std::endl;
+            std::cout << "DIST__ " << dist << std::endl;
 
             //DEBUG
             std::cout << "EXTERN_FORCE_DIRECTION  " << extern_force_direction.x << " " << extern_force_direction.y << std::endl;
