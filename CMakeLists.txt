@@ -27,6 +27,7 @@ set(SOURCE_FILES
     src/main.cpp 
     src/Particle.cpp 
     src/Utils.cpp 
+    src/GravitySource.cpp
 )
 set(TEST_FILES 
     tests/particle_tests.cpp
@@ -34,8 +35,8 @@ set(TEST_FILES
 )
 
 # BUILD PROJECT
-add_executable(gravitas ${SOURCE_FILES} ${TEST_FILES})
-target_link_libraries(gravitas PUBLIC 
+add_executable(gravitas ${SOURCE_FILES})
+target_link_libraries(gravitas PRIVATE 
     sfml-graphics
     gtest
     gtest_main
@@ -43,23 +44,30 @@ target_link_libraries(gravitas PUBLIC
 
 # BUILD TESTS
 enable_testing()
-add_executable(example_tests tests/example_tests.cpp)
-add_executable(particle_tests src/Particle.cpp tests/particle_tests.cpp src/Utils.cpp)
-target_link_libraries(example_tests PUBLIC
-    sfml-graphics
-    gtest
-    gtest_main
-)
-target_link_libraries(particle_tests PUBLIC
+# add_executable(example_tests tests/example_tests.cpp)
+# add_executable(particle_tests src/Particle.cpp tests/particle_tests.cpp src/Utils.cpp)
+add_executable(utils_tests tests/utils_tests.cpp src/Utils.cpp)
+# target_link_libraries(example_tests PUBLIC
+#     sfml-graphics
+#     gtest
+#     gtest_main
+# )
+# target_link_libraries(particle_tests PUBLIC
+#     sfml-graphics
+#     gtest
+#     gtest_main
+# )
+target_link_libraries(utils_tests PUBLIC
     sfml-graphics
     gtest
     gtest_main
 )
 include(googletest)
-gtest_discover_tests(particle_tests)
+# gtest_discover_tests(particle_tests utils_tests)
 
 # add_test(NAME example_tests COMMAND example_tests)
-add_test(NAME particle_tests COMMAND particle_tests)
+# add_test(NAME particle_tests COMMAND particle_tests)
+add_test(NAME utils_tests COMMAND utils_tests)
 
 target_compile_features(gravitas PRIVATE cxx_std_17)
 

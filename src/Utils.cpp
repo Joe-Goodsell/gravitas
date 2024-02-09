@@ -4,10 +4,14 @@
 
 namespace utils {
 sf::Vector2f normalize2f(const sf::Vector2f& source) {
-    float length = std::sqrt((source.x * source.x) + (source.y * source.y));
-    if (length == 0.0f) {
+    float norm = magnitude2f(source);
+    if (norm == 0.0f) {
         return sf::Vector2f(0,0);
     }
-    return sf::Vector2f(source.x / length, source.y / length);
+    return sf::Vector2f(source.x / norm, source.y / norm);
+}
+
+float magnitude2f(const sf::Vector2f& source) {
+    return std::sqrt((source.x * source.x) + (source.y * source.y));
 }
 }

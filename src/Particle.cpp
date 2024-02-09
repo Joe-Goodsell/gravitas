@@ -20,20 +20,24 @@ sf::Vector2f Particle::update_position(sf::Vector2f external_force_direction, fl
 
     // DEBUG 
     if (trace) {
-        std::cout << "old position: " << "x = " << std::to_string(this->position.x) << " y = " << std::to_string(this->position.y) << std::endl;
+        std::cout << "old position-------- " << "x = " << std::to_string(this->position.x) << " y = " << std::to_string(this->position.y) << std::endl;
     }
 
     auto internal = this->velocity * utils::normalize2f(this->direction); 
     auto external = external_force_strength * utils::normalize2f(external_force_direction);
 
     auto now = std::chrono::high_resolution_clock::now();
+    // WARN: this appears to not be correct
     std::chrono::duration<float> elapsed_seconds = now - this->last_update;
-    last_update = now;
-    this->position = this->position + elapsed_seconds.count() * (internal + external);
-    sprite.setPosition(this->position);
+    this->last_update = now;
+    // this->position = this->position + elapsed_seconds.count()*(internal + external);
+    auto old_position = this->get_position();
+    auto new_position = old_position + elapsed_seconds.count()*(internal+external);
+    this->set_position(new_position);
 
     // DEBUG
     if (trace) {
+        std::cout << "extern dir x: " << external_force_direction.x << ", y " << external_force_direction.y << "; magnitude " << external_force_strength << std::endl;
         std::cout << "elapsed: " << elapsed_seconds.count() << std::endl;
         std::cout << "internal: " << "x = " << std::to_string(internal.x) << " y = " << std::to_string(internal.y) << std::endl;
         std::cout << "elapsed_seconds: " << std::to_string(elapsed_seconds.count()) << std::endl;
@@ -49,6 +53,13 @@ sf::Vector2f Particle::update_position() {
 
 void Particle::set_trace(bool trace) {
     this->trace = trace;
+}
+
+sf::Vector2f const Particle::get_position() { return this->position; }
+
+void Particle::set_position(sf::Vector2f position) {
+    this->position = position;
+    this->sprite.setPosition(position);
 }
 
 void Particle::draw(sf::RenderWindow& window) {
