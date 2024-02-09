@@ -10,6 +10,7 @@
 #include "GravitySource.h"
 #include "Utils.h"
 
+// TODO: should I use curly braces here?
 extern const float GRAV_CONST { 9.8 };
 const double PART_SPAWN_RATE { 30 }; // per second
 const double GRAV_SPAWN_RATE { 2 };
@@ -19,7 +20,7 @@ int main()
 {
     std::cout << "INITIALIZING gravitas" << std::endl;
     std::cout << "CWD IS: " << std::filesystem::current_path() << std::endl;
-    const unsigned int WINDOW_HEIGHT = 1920u, WINDOW_WIDTH = 1080u;
+    const unsigned int WINDOW_WIDTH = 1920u, WINDOW_HEIGHT = 1080u;
     auto window = sf::RenderWindow{ { WINDOW_WIDTH, WINDOW_HEIGHT }, "CMake SFML Project" };
     window.setFramerateLimit(144);
 
@@ -56,7 +57,7 @@ int main()
     std::vector<GravitySource> grav_sources;
     // grav_sources.push_back(GravitySource(sf::Vector2f(700,700), 1.f));
 
-    auto grav_source = GravitySource(sf::Vector2f(700,700), 5000.f);
+    auto grav_source = GravitySource(sf::Vector2f(700,700), 5000.f, 5.f);
     grav_source.set_disp(true);
     grav_sources.push_back(grav_source);
 
@@ -161,7 +162,7 @@ int main()
 
         if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Right) && grav_spawn_timer <= 0) {
             auto mouse_pos = sf::Mouse::getPosition(window);
-            auto grav_source = GravitySource(sf::Vector2f(mouse_pos.x,mouse_pos.y), 5000.f);
+            auto grav_source = GravitySource(sf::Vector2f(mouse_pos.x,mouse_pos.y), 5000.f, 5.f);
             grav_source.set_disp(true);
             grav_sources.push_back(grav_source);
             grav_spawn_timer = 1 / GRAV_SPAWN_RATE;

@@ -1,7 +1,7 @@
 #include "GravitySource.h"
 #include <iostream>
 
-GravitySource::GravitySource(sf::Vector2f position, float strength) : position(position), strength(strength) {
+GravitySource::GravitySource(sf::Vector2f position, float mass, float radius) : position(position), mass(mass), radius(radius) {
     std::cout << "INITIALISING GRAV SOURCE AT " << position.x << " " << position.y << std::endl;
     create_shape();
 }
@@ -10,7 +10,7 @@ GravitySource::~GravitySource() = default;
 
 sf::Vector2f GravitySource::get_position() { return this->position; }
 
-float GravitySource::get_strength() { return this->strength; }
+float GravitySource::get_strength() { return this->mass; }
 
 void GravitySource::create_shape() { 
     sprite.setRadius(20);

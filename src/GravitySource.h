@@ -10,7 +10,7 @@ class GravitySource {
         void set_disp(bool disp);
         void draw(sf::RenderWindow& window);
 
-        GravitySource(sf::Vector2f position, float strength);
+        GravitySource(sf::Vector2f position, float strength, float mass);
         ~GravitySource();
 
         sf::Vector2f get_position();
@@ -18,7 +18,8 @@ class GravitySource {
     
     private:
         sf::Vector2f position;
-        float strength;
+        float radius;
+        float mass;
         bool disp;
         sf::CircleShape sprite;
 
