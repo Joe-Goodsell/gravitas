@@ -25,7 +25,9 @@ sf::Vector2f Particle::update_position(sf::Vector2f external_force_direction, fl
         std::cout << "velocity-------- " << "x = " << std::to_string(this->velocity.x) << " y = " << std::to_string(this->velocity.y) << std::endl;
     }
 
-    auto external = external_force_strength * utils::normalize2f(external_force_direction);
+    // auto external = external_force_strength * utils::normalize2f(external_force_direction);
+    // TODO: temp
+    auto external = external_force_direction;
 
     // Ccalculate ∆Time
     auto now = std::chrono::high_resolution_clock::now();
@@ -35,7 +37,9 @@ sf::Vector2f Particle::update_position(sf::Vector2f external_force_direction, fl
 
     // Newton's 2nd law: ∆p = F x ∆t
     auto old_position = this->get_position();
-    auto delta_p = delta_t.count()*utils::normalize2f(external_force_direction)*external_force_strength;
+    // auto delta_p = delta_t.count()*utils::normalize2f(external_force_direction)*external_force_strength;
+    //TODO: clean up
+    auto delta_p = delta_t.count()*external_force_direction;
     this->velocity = this->velocity + (delta_p / this->mass);
     auto new_position = old_position + this->velocity;
     this->set_position(new_position);
