@@ -26,6 +26,7 @@ class Particle {
         sf::Vector2f direction;
         float velocity;
         sf::CircleShape sprite;
+        sf::Color color;
         bool trace;
         std::chrono::time_point<std::chrono::high_resolution_clock> last_update;
 };

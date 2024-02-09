@@ -4,9 +4,10 @@
 #include <SFML/System/Vector2.hpp>
 #include <iostream>
 
-
 Particle::Particle(sf::Vector2f position, sf::Vector2f direction, float velocity) : position(position), direction(direction), velocity(velocity) {
-    sprite.setFillColor(sf::Color::White);
+    //TODO: add dynamic color
+    this->color = sf::Color::Green;
+    sprite.setFillColor(color);
     // TODO: make not hard coded
     sprite.setPosition(position);
     sprite.setRadius(2.f);
@@ -33,6 +34,8 @@ sf::Vector2f Particle::update_position(sf::Vector2f external_force_direction, fl
     // this->position = this->position + elapsed_seconds.count()*(internal + external);
     auto old_position = this->get_position();
     auto new_position = old_position + elapsed_seconds.count()*(internal+external);
+    this->velocity += external_force_strength;
+    this->direction = utils::normalize2f(this->velocity*this->direction + external_force_strength*external_force_direction);
     this->set_position(new_position);
 
     // DEBUG

@@ -9,6 +9,8 @@
 #include "GravitySource.h"
 #include "Utils.h"
 
+extern const float GRAV_CONST { 9.8 };
+
 int main()
 {
     std::cout << "INITIALIZING gravitas" << std::endl;
@@ -26,7 +28,6 @@ int main()
         // handle error
     }
     sf::Text fpsDispText;
-    fpsDispText.setString("Hi");
     fpsDispText.setCharacterSize(24);
     fpsDispText.setFillColor(sf::Color::White);
     fpsDispText.setFont(font);
@@ -35,15 +36,13 @@ int main()
 
     // Initialise particles
     std::vector<Particle> particles;
-
-    Particle particle = Particle(sf::Vector2f(100,100), sf::Vector2f(0.2,0.2), 500.f);
     // add some test particles
     auto randmax = static_cast<float>(RAND_MAX);
 
     for (int i = 0; i < 50; i++) {
         auto rand1 = static_cast<float>(rand() / randmax) - 0.5;
         auto rand2 = static_cast<float>(rand() / randmax) - 0.5;
-        auto p = Particle(sf::Vector2f(350,350), sf::Vector2f(rand1,rand2), 500.f);
+        auto p = Particle(sf::Vector2f(350,350), sf::Vector2f(rand1,rand2), 50.f);
         p.set_trace(false);
         particles.push_back(p);
     }
@@ -52,7 +51,7 @@ int main()
     // Initialise gravity well
     // std::vector<GravitySource> grav_sources;
     // grav_sources.push_back(GravitySource(sf::Vector2f(700,700), 1.f));
-    auto grav_source = GravitySource(sf::Vector2f(700,700), 500000.f);
+    auto grav_source = GravitySource(sf::Vector2f(700,700), 500.f);
     grav_source.set_disp(true);
 
 
@@ -103,10 +102,10 @@ int main()
             float extern_force_magnitude;
 
             //TODO: add support for multiple grav sources
-            // auto p2grav_vec = grav_source.get_position() - particle.get_position() ;
-            auto p2grav_vec = particle.get_position() - grav_source.get_position();
+            auto p2grav_vec = grav_source.get_position() - particle.get_position() ;
+            // auto p2grav_vec = particle.get_position() - grav_source.get_position();
             auto magnitude = std::max(1.f, utils::magnitude2f(p2grav_vec));
-            extern_force_magnitude = (10.f / (magnitude*magnitude)) * grav_source.get_strength();
+            extern_force_magnitude = (GRAV_CONST * grav_source.get_strength()) / (magnitude*magnitude);
             extern_force_direction = utils::normalize2f(p2grav_vec);
 
             
