@@ -13,8 +13,8 @@ sf::Vector2f GravitySource::get_position() { return this->position; }
 float GravitySource::get_strength() { return this->mass; }
 
 void GravitySource::create_shape() { 
-    sprite.setRadius(20);
-    sprite.setPointCount(4); // turns circle into square
+    sprite.setRadius(this->radius);
+    // sprite.setPointCount(4); // turns circle into square
     sprite.setFillColor(sf::Color::Transparent); 
     sprite.setOutlineThickness(2);
     sprite.setOutlineColor(sf::Color::Cyan);

@@ -12,9 +12,9 @@
 
 // TODO: should I use curly braces here?
 extern const float GRAV_CONST { 9.8 };
-const double PART_SPAWN_RATE { 30 }; // per second
-const double GRAV_SPAWN_RATE { 2 };
-const auto TRACE { false };
+const double       PART_SPAWN_RATE { 30 }; // per second
+const double       GRAV_SPAWN_RATE { 2 };
+const bool         TRACE { false };
 
 int main()
 {
@@ -186,3 +186,4 @@ int main()
         window.display();
     }
 }
+
