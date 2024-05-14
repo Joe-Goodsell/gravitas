@@ -28,6 +28,8 @@ set(SOURCE_FILES
     src/Particle.cpp 
     src/Utils.cpp 
     src/GravitySource.cpp
+        src/App.cpp
+        src/App.h
 )
 set(TEST_FILES 
     tests/particle_tests.cpp

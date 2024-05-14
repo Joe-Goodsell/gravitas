@@ -14,7 +14,6 @@ Particle::Particle(sf::Vector2f position, sf::Vector2f velocity, float mass) : p
     last_update = std::chrono::high_resolution_clock::now();
 }
 
-
 Particle::~Particle() = default;
 
 sf::Vector2f Particle::update_position(sf::Vector2f external_force_direction, float external_force_strength) {
